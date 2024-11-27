@@ -5,5 +5,5 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
 @Configuration
-@PropertySource("file:D:/workspace/spring/golden-time-springboot/config.env")
+@PropertySource("file:C:/Workspace/spring/golden-time-springboot/config.env")
 public class EnvConfig {}
