@@ -1,4 +1,4 @@
-package com.example.demo.domain.like;
+package com.example.demo.entity;
 
 import lombok.Data;
 
