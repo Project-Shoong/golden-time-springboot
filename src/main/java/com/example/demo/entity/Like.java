@@ -14,12 +14,14 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Getter
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
-@Table(name="like")
+@Table(name="`like`")
 @DynamicInsert
+@ToString
 public class Like {
 	
 	@Id
@@ -31,9 +33,15 @@ public class Like {
 	
 	@ManyToOne
 	@JoinColumn(name="member_id", nullable=false)
-	private Member memberId;
+	private Member member;
 	
 	@ManyToOne
 	@JoinColumn(name="duty_id", nullable=false)
-	private Duty dutyId;
+	private Duty duty;
+	
+	public Like(String classification, Member member, Duty duty) {
+		this.classification = classification;
+		this.member = member;
+		this.duty = duty;
+	}
 }

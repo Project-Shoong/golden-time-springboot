@@ -5,14 +5,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Getter
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Table(name="duty")
+@ToString
 public class Duty {
 	
 	@Id

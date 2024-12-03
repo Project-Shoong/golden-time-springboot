@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import java.time.LocalDateTime;
+
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -8,7 +10,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -31,11 +37,35 @@ public class Review {
 	@Column(nullable=false, length=1000)
 	private String content;
 	
-	@
-	private String createdAt;
-	private String dateTime;
+	@Column
+	private LocalDateTime createdAt;
+	
+	@Column
+	private LocalDateTime updatedAt;
+	
+	@Column(nullable=false)
 	private int rating;
+	
+	@Column(nullable=false, length=50)
 	private String classification;
-	private String memberId;
-	private String dutyId;
+	
+	@ManyToOne
+	@JoinColumn(name="member_id", nullable=false)
+	private Member member;
+	
+	@ManyToOne
+	@JoinColumn(name="duty_id", nullable=false)
+	private Duty duty;
+	
+	@PrePersist
+	public void prePersist() {
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = this.createdAt;
+	}
+	
+	@PreUpdate
+	public void preUpdate() {
+		this.updatedAt = LocalDateTime.now();
+	}
+	
 }

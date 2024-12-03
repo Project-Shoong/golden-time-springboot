@@ -60,8 +60,15 @@ public class MemberServiceImpl implements MemberService{
 	public boolean delete(String memberId) {
 		Optional<Member> data = memberRepository.findByMemberId(memberId);
 		if(data.isPresent()) {
+			memberRepository.deleteById(memberId);
+			data = memberRepository.findByMemberId(memberId);
+			if(data.isEmpty()) {
+				return true;
+			}
+			// TODO : 예외 처리(멤버 삭제 실패)
 			return false;
 		}
-		return true;
+		// TODO : 예외 처리(존재하지 않는 멤버)
+		return false;
 	}
 }

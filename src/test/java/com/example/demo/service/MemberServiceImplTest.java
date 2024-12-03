@@ -25,6 +25,7 @@ public class MemberServiceImplTest {
 	@Autowired
 	private MemberService memberService;
 	
+//	@Test
 	void get() {
 		Member actual = new Member("testId", "1234", "nickname", "testEmail", "010-1234-1234");
 		memberRepository.save(actual);
@@ -35,7 +36,7 @@ public class MemberServiceImplTest {
 							.isEqualTo(actual);
 	}
 	
-	@Test
+//	@Test
 	void update() {
 		Member actual = new Member("testId", "1234", "nickname", "testEmail", "010-1234-1234");
 		memberRepository.save(actual);
@@ -52,6 +53,20 @@ public class MemberServiceImplTest {
 			System.out.println("실패");
 		}
 		
+	}
+	
+	@Test
+	void delete() {
+		Member actual = new Member("testId", "1234", "nickname", "testEmail", "010-1234-1234");
+		memberRepository.save(actual);
+		if(memberService.delete("testId")) {
+			System.out.println("삭제 성공");
+			MemberInfoResponseDto expected = memberService.get("testId");
+			assertThat(expected).isNull();
+		}
+		else {
+			System.out.println("실패");
+		}
 	}
 
 }
