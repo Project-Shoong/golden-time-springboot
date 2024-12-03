@@ -1,39 +1,41 @@
 package com.example.demo.entity;
 
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
-@Table(name="like")
+@Table(name="review")
 @DynamicInsert
-public class Like {
+public class Review {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long likeId;
+	private long reviewId;
 	
-	@Column(nullable=false, length=50)
+	@Lob
+	@Column(nullable=false, length=1000)
+	private String content;
+	
+	@
+	private String createdAt;
+	private String dateTime;
+	private int rating;
 	private String classification;
-	
-	@ManyToOne
-	@JoinColumn(name="member_id", nullable=false)
-	private Member memberId;
-	
-	@ManyToOne
-	@JoinColumn(name="duty_id", nullable=false)
-	private Duty dutyId;
+	private String memberId;
+	private String dutyId;
 }

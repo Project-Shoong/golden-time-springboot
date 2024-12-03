@@ -17,6 +17,7 @@ import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @Table(name="member")
 @DynamicInsert

@@ -1,9 +1,13 @@
 package com.example.demo.repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.entity.Member;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,4 +26,6 @@ public interface MemberRepository extends JpaRepository<Member, String>{
 	// {Optional}.get(); // 값 가져오기 - 객체
 	// {Optional}.isEmpty(); // 값이 비어있는지 - boolean
 	// {Optional}.isPresent(); // 값이 들어있는지 - boolean
+	
+	
 } 
