@@ -38,11 +38,11 @@ public class Member {
 	@Column(nullable=false, length=50)
 	private String phoneNumber;
 	
-	@Column(nullable=false, length=3000)
+	@Column(length=3000)
 	@ColumnDefault("'default_image'")
 	private String systemName;
 	
-	@Column(nullable=false, length=3000)
+	@Column(length=3000)
 	@ColumnDefault("'default_image'")
 	private String originName;
 
