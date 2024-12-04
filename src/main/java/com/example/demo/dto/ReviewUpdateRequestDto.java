@@ -7,11 +7,13 @@ import com.example.demo.entity.Like;
 import com.example.demo.entity.Member;
 import com.example.demo.entity.Review;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
+@AllArgsConstructor
 public class ReviewUpdateRequestDto {
 	long reviewId;
 	String content;

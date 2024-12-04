@@ -20,6 +20,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
@@ -27,6 +28,7 @@ import lombok.Setter;
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @Table(name="review")
 @DynamicInsert
+@ToString
 public class Review {
 	
 	@Id
@@ -59,13 +61,22 @@ public class Review {
 	
 	@PrePersist
 	public void prePersist() {
-		this.createdAt = LocalDateTime.now();
+//		this.createdAt = LocalDateTime.now();
 		this.updatedAt = this.createdAt;
 	}
 	
-	@PreUpdate
-	public void preUpdate() {
-		this.updatedAt = LocalDateTime.now();
+//	@PreUpdate
+//	public void preUpdate() {
+//		this.updatedAt = LocalDateTime.now();
+//	}
+	
+	public Review(String content, int rating, LocalDateTime createdAt, String classification, Member member, Duty duty) {
+		this.content = content;
+		this.rating = rating;
+		this.createdAt = createdAt;
+		this.classification = classification;
+		this.member = member;
+		this.duty = duty;
 	}
 	
 }

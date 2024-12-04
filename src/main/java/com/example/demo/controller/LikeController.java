@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.LikeListResponseDto;
@@ -38,8 +39,8 @@ public class LikeController {
 		return ApiResponse.fail(list, ResponseCode.LIKES_NOT_FOUND);
 	}
 	
-	@GetMapping("likes")
-	public ApiResponse<List<LikeListResponseDto>> getlist(@PathVariable String memberId, int limit, HttpServletRequest req) {
+	@GetMapping("likes/limit")
+	public ApiResponse<List<LikeListResponseDto>> getlist(@PathVariable String memberId, @RequestParam int limit, HttpServletRequest req) {
 		String loginMember = (String)req.getSession().getAttribute("loginMember");
 		if(loginMember==null) {
 			return ApiResponse.fail(null, ResponseCode.UNAUTHORIZED);
@@ -54,9 +55,9 @@ public class LikeController {
 		return ApiResponse.fail(list, ResponseCode.LIKES_NOT_FOUND);
 	}
 	
-	@GetMapping("likes")
+	@GetMapping("likes/classification")
 	public ApiResponse<List<LikeListResponseDto>> getlist(@PathVariable String memberId,
-													String classification,
+													@RequestParam String classification,
 													HttpServletRequest req) {
 		String loginMember = (String)req.getSession().getAttribute("loginMember");
 		if(loginMember==null) {
