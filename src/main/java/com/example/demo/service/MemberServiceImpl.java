@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.MemberInfoResponseDto;
+
 import com.example.demo.dto.MemberUpdateRequestDto;
 import com.example.demo.entity.Member;
 import com.example.demo.repository.MemberRepository;
@@ -31,7 +32,7 @@ public class MemberServiceImpl implements MemberService{
 			// TODO: 예외 처리
 			return null;
 		}
-		return MemberInfoResponseDto.toDto(data.get()); 
+		return MemberInfoResponseDto.toDto(data.get());
 		
 		// SELECT * FROM TABLE
 		// memberRepository.findAll();

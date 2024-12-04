@@ -68,5 +68,4 @@ public class MemberServiceImplTest {
 			System.out.println("실패");
 		}
 	}
-
 }

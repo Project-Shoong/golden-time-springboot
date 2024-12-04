@@ -26,6 +26,4 @@ public interface MemberRepository extends JpaRepository<Member, String>{
 	// {Optional}.get(); // 값 가져오기 - 객체
 	// {Optional}.isEmpty(); // 값이 비어있는지 - boolean
 	// {Optional}.isPresent(); // 값이 들어있는지 - boolean
-	
-	
 } 
