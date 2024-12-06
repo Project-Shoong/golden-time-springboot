@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.PharmListDTO;
 import com.example.demo.domain.PharmReviewDTO;
+import com.example.demo.domain.ReviewListResponseDto;
+import com.example.demo.domain.ReviewUpdateRequestDto;
 import com.example.demo.domain.ReviewWriteDTO;
 
-@Service
+
 public interface ReviewService {
 
 	List<PharmListDTO> getPharmreviewcount(List<String> hpid);
@@ -16,4 +18,10 @@ public interface ReviewService {
 	List<PharmReviewDTO> getPharmReview(String hpid);
 
 	void writeReview(ReviewWriteDTO rv);
+
+	List<ReviewListResponseDto> getList(String memberId);
+	List<ReviewListResponseDto> getList(String memberId, int month);
+	List<ReviewListResponseDto> getList(String memberId, String classification);
+	boolean update(ReviewUpdateRequestDto review);
+	boolean delete(long reviewId);
 }
