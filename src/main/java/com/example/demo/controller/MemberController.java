@@ -1,26 +1,12 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.service.MemberService;
-import com.example.demo.service.MemberServiceImpl;
-import com.example.demo.service.provider.EmailProvider;
-
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import lombok.RequiredArgsConstructor;
-
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import org.springframework.web.bind.annotation.*;
-
-
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.example.demo.domain.MemberDTO;
 import com.example.demo.dto.MemberInfoResponseDto;
@@ -42,10 +27,15 @@ import com.example.demo.entity.Member;
 import com.example.demo.response.ApiResponse;
 import com.example.demo.response.ResponseCode;
 import com.example.demo.service.MemberService;
+import com.example.demo.service.MemberServiceImpl;
 import com.example.demo.service.ReviewService;
+import com.example.demo.service.provider.EmailProvider;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
@@ -148,18 +138,9 @@ public class MemberController {
 		req.getSession().invalidate();
 		return new ResponseEntity<String>("O",HttpStatus.OK);
 	}
-    
-
-
-
-
+ 
 	
-	@PostMapping("login")
-	public ResponseEntity<String> login(@RequestBody Member member, HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		session.setAttribute("loginMember", member.getMemberId());
-		return new ResponseEntity<String>("O", HttpStatus.OK);
-	}
+	
 	
 	@GetMapping("session")
 	public ApiResponse<String> get(HttpServletRequest req) {

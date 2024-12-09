@@ -85,6 +85,12 @@ public class ReviewServiceImpl implements ReviewService{
 			reviewMapper.writeReview(rv);
 		}
 	}
+	
+	@Override
+	public String getNickName(String memberId) {
+		String nick = reviewMapper.getNickName(memberId);
+		return nick;
+	}
 		
 	
 	
@@ -136,4 +142,5 @@ public class ReviewServiceImpl implements ReviewService{
 		// TODO : 예외 처리(존재하지 않는 즐겨찾기)
 		return false;
 	}
+
 }

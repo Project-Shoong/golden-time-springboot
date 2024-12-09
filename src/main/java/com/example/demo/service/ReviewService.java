@@ -22,4 +22,6 @@ public interface ReviewService {
 	List<ReviewListResponseDto> getList(String memberId, String classification);
 	boolean update(ReviewUpdateRequestDto review);
 	boolean delete(long reviewId);
+
+	String getNickName(String memberId);
 }
