@@ -47,6 +47,7 @@ public class MemberController {
 	@Autowired
 	private ReviewService rService;
 	
+	@Autowired
     private HttpSession session;
 	
 	@Autowired
@@ -57,15 +58,13 @@ public class MemberController {
 	//아이디 중복확인
 	@GetMapping("checkId")
 	public ResponseEntity<String> checkId(@RequestParam String memberId) {
-		System.out.println(memberId);
+//		System.out.println(memberId);
 		if(service.checkId(memberId)) {
 			return new ResponseEntity<String>("O",HttpStatus.OK);
-		}
-		else {
+		} else {
 			return new ResponseEntity<String>("X",HttpStatus.OK);			
 		}
 	}
-
 	
 	// 인증번호 발송
 	@PostMapping("sendMailCertificationNumber")
@@ -73,6 +72,7 @@ public class MemberController {
 		String certificationNumber = service.getCertificationNumber();
 		session.setAttribute("certificationNumber", certificationNumber);
 
+		System.out.println("메일: " + email);
 		System.out.println("인증번호: " + certificationNumber);
 //		boolean result = emailProvider.sendCertificationMail(email, certificationNumber);
 
@@ -83,7 +83,6 @@ public class MemberController {
         }
 	}
 	
-	
 	// 인증번호 확인
 	@PostMapping("certificationNumberCheck")
 	public ResponseEntity<String> certificationNumberCheck(@RequestParam String memberMailNumber){
@@ -93,32 +92,28 @@ public class MemberController {
 		
 		if(memberMailNumber != null && certificationNumber.equals(memberMailNumber)) {
 			return new ResponseEntity<String>("O",HttpStatus.OK);
-		}
-		else {
+		} else {
 			return new ResponseEntity<String>("X",HttpStatus.OK);			
 		}
 	}
 	
-	
-	// 회원가입 Submit
+	// 회원가입
 	@PostMapping("join")
     public ResponseEntity<String> join(@RequestBody MemberDTO memberData, HttpServletResponse resp) {
         // 데이터 처리 로직
-        System.out.println("MemberDTO: " + memberData);
+//        System.out.println("MemberDTO: " + memberData);
         if(service.join(memberData)) {
         	Cookie cookie = new Cookie("joinId",memberData.getMemberId());
         	cookie.setPath("/");
-        	cookie.setMaxAge(120);
+        	cookie.setMaxAge(30);
         	resp.addCookie(cookie);
         	return new ResponseEntity<String>("O",HttpStatus.OK);
-        }
-        else {
+        } else {
         	return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 	
-	
-	// 로그인 Submit
+	// 로그인
 	@PostMapping("login")
 	public ResponseEntity<String> login(@RequestBody Map<String, String> data, HttpServletRequest req) {
 		String memberId = data.get("memberId");
@@ -130,7 +125,6 @@ public class MemberController {
 	    }
 	    return new ResponseEntity<String>("X", HttpStatus.OK);
 	}
-
 	
 	// 로그아웃
 	@GetMapping("logout")
@@ -138,9 +132,63 @@ public class MemberController {
 		req.getSession().invalidate();
 		return new ResponseEntity<String>("O",HttpStatus.OK);
 	}
- 
+
+
+	// 아이디 찾기
+	@PostMapping("help/IdInquiry")
+	public ResponseEntity<String> idInquiry(@RequestBody MemberDTO memberData, HttpServletResponse resp) {
+		System.out.println("memberData: " + memberData.getPhoneNumber());
+		
+		MemberDTO result = service.checkPhoneAndMail(memberData);
+		if(result != null) {
+			Cookie cookie = new Cookie("joinId",result.getMemberId());
+        	cookie.setPath("/");
+        	cookie.setMaxAge(30);
+        	resp.addCookie(cookie);
+			return new ResponseEntity<String>(result.getMemberId(),HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("X",HttpStatus.OK);
+		}
+	}
+
+	// 비밀번호 찾기
+	@PostMapping("help/PwInquiry")
+	public ResponseEntity<String> pwInquiry(@RequestBody MemberDTO memberData) {
+		System.out.println("memberData: " + memberData.getMemberId());
+		System.out.println(service.checkId(memberData.getMemberId()));
+		if(service.checkId(memberData.getMemberId())) {
+			System.out.println("아이디 없음");
+			return new ResponseEntity<String>("등록된 아이디가 없습니다.",HttpStatus.OK);
+		}
+		
+		MemberDTO result = service.checkPhoneAndMail(memberData);
+		if(result != null) {
+			return new ResponseEntity<String>("O",HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("X",HttpStatus.OK);			
+		}
+	}
+	
+	// 비밀번호 변경
+	@PostMapping("help/PwResetting")
+	public ResponseEntity<String> PwResetting(@RequestBody MemberDTO memberData, HttpServletResponse resp) {
+		System.out.println("memberData: " + memberData.getPhoneNumber());
+		
+		boolean result = service.updatePwByMemberId(memberData);
+		if(result) {
+			Cookie cookie = new Cookie("joinId",memberData.getMemberId());
+        	cookie.setPath("/");
+        	cookie.setMaxAge(30);
+        	resp.addCookie(cookie);
+			return new ResponseEntity<String>("O",HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("X",HttpStatus.OK);			
+		}
+	}
 	
 	
+
+
 	
 	@GetMapping("session")
 	public ApiResponse<String> get(HttpServletRequest req) {
@@ -216,7 +264,7 @@ public class MemberController {
 		return ApiResponse.fail("fail", ResponseCode.INTERNAL_SERVER_ERROR);
 	}
 	
-	@GetMapping("reviews")
+	@GetMapping("{memberId}/reviews")
 	public ApiResponse<List<ReviewListResponseDto>> getlist(@PathVariable String memberId, HttpServletRequest req) {
 		String loginMember = (String)req.getSession().getAttribute("loginMember");
 		if(loginMember==null) {
@@ -232,7 +280,7 @@ public class MemberController {
 		return ApiResponse.fail(list, ResponseCode.REVIEWS_NOT_FOUND);
 	}
 	
-	@GetMapping("reviews/month")
+	@GetMapping("{memberId}/reviews/month")
 	public ApiResponse<List<ReviewListResponseDto>> getlist(@PathVariable String memberId, @RequestParam int month, HttpServletRequest req) {
 		String loginMember = (String)req.getSession().getAttribute("loginMember");
 		if(loginMember==null) {
@@ -248,7 +296,7 @@ public class MemberController {
 		return ApiResponse.fail(list, ResponseCode.REVIEWS_NOT_FOUND);
 	}
 	
-	@GetMapping("reviews/classification")
+	@GetMapping("{memberId}/reviews/classification")
 	public ApiResponse<List<ReviewListResponseDto>> getlist(@PathVariable String memberId,
 													@RequestParam String classification,
 													HttpServletRequest req) {
@@ -266,7 +314,7 @@ public class MemberController {
 		return ApiResponse.fail(list, ResponseCode.REVIEWS_NOT_FOUND);
 	}
 	
-	@PutMapping("review/{reviewId}")
+	@PutMapping("{memberId}/review/{reviewId}")
 	public ApiResponse<String> modify(@PathVariable String memberId, @PathVariable long reviewId, ReviewUpdateRequestDto review, HttpServletRequest req){
 		String loginMember = (String)req.getSession().getAttribute("loginMember");
 		if(loginMember==null) {
@@ -282,7 +330,7 @@ public class MemberController {
 		return ApiResponse.fail("fail", ResponseCode.INTERNAL_SERVER_ERROR);
 	}
 	
-	@DeleteMapping("review/{reviewId}")
+	@DeleteMapping("{memberId}/review/{reviewId}")
 	public ApiResponse<String> delete(@PathVariable String memberId,
 											@PathVariable long reviewId,
 											HttpServletRequest req) {
