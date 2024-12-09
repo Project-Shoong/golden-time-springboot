@@ -100,7 +100,7 @@ public class MemberServiceImpl{
 				delFile.delete();
 			}
 			if(file == null) {
-				data.setSystemName("default_image.jpg");
+				data.setSystemName("default_image.png");
 				data.setOriginName("default_image");
 			}
 		}

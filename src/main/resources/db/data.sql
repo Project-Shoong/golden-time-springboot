@@ -1,14 +1,14 @@
 insert into member (member_id, `password`, `nickname`, `email`, `phone_number`, `system_name`) values
-	('apple123', 'dkssud123!', '김사과', 'apple@naver.com', '01012341234', 'default_image.jpg'),
-    ('banana123', 'dkssud123!', '반하나', 'banana@naver.com', '01012341234', 'default_image.jpg'),
-    ('cherry123', 'dkssud123!', '이체리', 'cherry@naver.com', '01012341234', 'default_image.jpg'),
-    ('Date123', 'dkssud123!', '대추', 'Date@naver.com', '01012341234', 'default_image.jpg'),
-    ('Elderberry123', 'dkssud123!', '엘더베리', 'Elderberry@naver.com', '01012341234', 'default_image.jpg'),
-    ('Fig123', 'dkssud123!', '무화과', 'Fig@naver.com', '01012341234', 'default_image.jpg'),
-    ('Grape123', 'dkssud123!', '포도', 'Grape@naver.com', '01012341234', 'default_image.jpg'),
-    ('Honeydew123', 'dkssud123!', '허니듀', 'Honeydew@naver.com', '01012341234', 'default_image.jpg'),
-    ('Indianfig123', 'dkssud123!', '인디언무화과', 'Indianfig@naver.com', '01012341234', 'default_image.jpg'),
-    ('Jackfruit123', 'dkssud123!', '잭프루트', 'Jackfruit@naver.com', '01012341234', 'default_image.jpg');
+	('apple123', 'dkssud123!', '김사과', 'apple@naver.com', '01012341234', 'default_image.png'),
+    ('banana123', 'dkssud123!', '반하나', 'banana@naver.com', '01012341234', 'default_image.png'),
+    ('cherry123', 'dkssud123!', '이체리', 'cherry@naver.com', '01012341234', 'default_image.png'),
+    ('Date123', 'dkssud123!', '대추', 'Date@naver.com', '01012341234', 'default_image.png'),
+    ('Elderberry123', 'dkssud123!', '엘더베리', 'Elderberry@naver.com', '01012341234', 'default_image.png'),
+    ('Fig123', 'dkssud123!', '무화과', 'Fig@naver.com', '01012341234', 'default_image.png'),
+    ('Grape123', 'dkssud123!', '포도', 'Grape@naver.com', '01012341234', 'default_image.png'),
+    ('Honeydew123', 'dkssud123!', '허니듀', 'Honeydew@naver.com', '01012341234', 'default_image.png'),
+    ('Indianfig123', 'dkssud123!', '인디언무화과', 'Indianfig@naver.com', '01012341234', 'default_image.png'),
+    ('Jackfruit123', 'dkssud123!', '잭프루트', 'Jackfruit@naver.com', '01012341234', 'default_image.png');
     
 insert into duty (duty_id, duty_name, duty_div, duty_tel) values
 	('A1124291', '(의)가산의료재단광동병원', '병원', '02-2222-4888'),
