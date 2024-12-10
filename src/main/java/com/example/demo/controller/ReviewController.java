@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.MemberDTO;
+
 import com.example.demo.domain.PharmLikeDTO;
 import com.example.demo.domain.PharmListDTO;
 import com.example.demo.domain.PharmReviewDTO;
@@ -57,6 +58,7 @@ public class ReviewController {
 //        System.out.println("react로 부터 받은 값: " + hpid);
 //        System.out.println("react로 부터 받은 아이디: " + memberId);
 
+
         List<Integer> result = service.getPharmlike(hpid,memberId);
         
 //        System.out.println("난 컨트롤러:" +result);
@@ -95,6 +97,7 @@ public class ReviewController {
 	@PostMapping("write")
 	public ResponseEntity<String> writeReview(@RequestBody ReviewWriteDTO rv) {
 		
+
 	    //약국 값은 기본으로 넣어줌, 병원의 경우 외과 안과 이런거 받아서 넣어야함
 	    String classification = "약국";
 	    rv.setClassification(classification);
